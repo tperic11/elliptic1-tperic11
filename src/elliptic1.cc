@@ -28,8 +28,8 @@ int main(int argc, char** argv)
     Dune::MPIHelper::instance(argc, argv);
     const double L = 1.0; // (0, 1)
     const double g0 = 0.0;
-    const double g1 = 2.0;
-    const int N = 1000; // broj elemenata x0= 0, ..., xN=L
+    const double g1 = 0.0;
+    const int N = 20; // broj elemenata x0= 0, ..., xN=L
     const double h = L/N;
 
     using Vector = Dune::BlockVector<double>; //Dune::BlockVector<Dune::Fieldvector<double, 1>>
