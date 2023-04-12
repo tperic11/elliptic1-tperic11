@@ -1,0 +1,12 @@
+################################
+# Dune module information file #
+################################
+
+# Name of the module
+Module: elliptic1
+Version: 1.0
+Maintainer: tomiperi.math@pmf.hr
+# Required build dependencies
+Depends: dune-geometry dune-common dune-grid dune-istl
+# Optional build dependencies
+#Suggests:
