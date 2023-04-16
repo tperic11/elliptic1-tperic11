@@ -15,21 +15,25 @@
 #include <dune/grid/onedgrid.hh>
 #include <dune/grid/io/file/vtk.hh>
 
+// -(a*u')'=f
+// a(x)=1+x, f(x)=pi*sin(pi*x)+pi*pi*(1+x)*cos(pi*x)
+//Egzaktno rjesenje je u(x)=cos(pi*x)
+
 double f(double x){
-    return -x*x*M_PI*std::cos(M_PI*x)+(1+x*x)*M_PI*M_PI*std::sin(M_PI*x);
+    return M_PI*std::sin(M_PI*x)+M_PI*M_PI*(1+x)*std::cos(M_PI*x);
 }
 
 double a(double x){
-    return 1+x*x;
+    return 1+x;
 }
 
 int main(int argc, char** argv)
 {
     Dune::MPIHelper::instance(argc, argv);
     const double L = 1.0; // (0, 1)
-    const double g0 = 0.0;
-    const double g1 = 0.0;
-    const int N = 20; // broj elemenata x0= 0, ..., xN=L
+    const double g0 = 1.0;
+    const double g1 = -1.0;
+    const int N = 100; // broj elemenata x0= 0, ..., xN=L
     const double h = L/N;
 
     using Vector = Dune::BlockVector<double>; //Dune::BlockVector<Dune::Fieldvector<double, 1>>
@@ -93,7 +97,7 @@ int main(int argc, char** argv)
 
     Vector Error(N+1);
     for(int i=0; i<=N; ++i){
-        Error[i]=U[i]-std::sin(M_PI*i*h);
+        Error[i]=U[i]-std::cos(M_PI*i*h);
     }
 
     std::cout << "Norma greske = " << Error.two_norm() << "\n";
